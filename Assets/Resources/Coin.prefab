@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 108694981402930516}
   - component: {fileID: 114586629397649346}
   - component: {fileID: 114502712827456512}
-  - component: {fileID: -2043668128418656346}
+  - component: {fileID: -2423812977398182967}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 200
---- !u!114 &-2043668128418656346
+--- !u!114 &-2423812977398182967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

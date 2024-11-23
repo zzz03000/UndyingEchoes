@@ -52,6 +52,8 @@ MonoBehaviour:
   - SendOpenOptionRequestToMaster
   - StartCloseOptionCountdown
   - SyncOptionState
+  - SyncScore
+  - SyncWaveAndEnemyCount
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

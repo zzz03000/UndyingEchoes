@@ -108,6 +108,19 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
             // 적 생성 처리 실행
             CreateEnemy(enemyIntensity);
         }
+        // 웨이브와 남은 적 수를 동기화
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("SyncWaveAndEnemyCount", RpcTarget.All, wave, enemies.Count);
+        }
+    }
+    // 웨이브와 남은 적 수를 동기화하는 RPC
+    [PunRPC]
+    public void SyncWaveAndEnemyCount(int currentWave, int remainingEnemies)
+    {
+        wave = currentWave;
+        enemyCount = remainingEnemies;
+        UpdateUI();
     }
 
     //적을 생성하고 추적할 대상을 할당
