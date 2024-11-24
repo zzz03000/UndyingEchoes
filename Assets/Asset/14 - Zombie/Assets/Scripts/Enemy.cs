@@ -23,6 +23,8 @@ public class Enemy : LivingEntity
     public float timeBetAttack = 0.5f; //공격 간격
     private float lastAttackTime; //마지막 공격 시점
 
+    private PhotonView photonView;
+
     //추적할 대상이 존재한느지 알려주는 프로퍼티
     private bool hasTarget
     {
@@ -45,6 +47,7 @@ public class Enemy : LivingEntity
         enemyAudioPlayer = GetComponent<AudioSource>();
 
         enemyRenderer = GetComponentInChildren<Renderer>();
+        photonView = GetComponent<PhotonView>(); // PhotonView 초기화
     }
 
     //적 AI의 초기 스펙을 결정하는 셋업 메서드
@@ -113,6 +116,8 @@ public class Enemy : LivingEntity
                     if(livingEntity != null && !livingEntity.dead)
                     {
                         targetEntity = livingEntity;
+                        // 추적 대상 변경 RPC 호출
+                        photonView.RPC("SetTarget", RpcTarget.Others, targetEntity.photonView.ViewID);
 
                         break;
                     }
@@ -120,6 +125,15 @@ public class Enemy : LivingEntity
             }
             //0.25초 주기로 처리 반복
             yield return new WaitForSeconds(0.25f);
+        }
+    }
+    [PunRPC]
+    private void SetTarget(int targetViewID)
+    {
+        PhotonView targetPhotonView = PhotonView.Find(targetViewID);
+        if (targetPhotonView != null)
+        {
+            targetEntity = targetPhotonView.GetComponent<LivingEntity>();
         }
     }
 
@@ -163,6 +177,17 @@ public class Enemy : LivingEntity
         enemyAnimator.SetTrigger("Die");
         //사망 효과음 재생
         enemyAudioPlayer.PlayOneShot(deathSound);
+
+        // 사망 이벤트를 클라이언트에 알림
+        photonView.RPC("OnDie", RpcTarget.Others);
+
+    }
+
+    [PunRPC]
+    private void OnDie()
+    {
+        // 사망 애니메이션 처리
+        enemyAnimator.SetTrigger("Die");
     }
 
     private void OnTriggerStay(Collider other)
