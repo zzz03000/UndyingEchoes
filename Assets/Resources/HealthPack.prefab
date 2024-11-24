@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 108751749025666960}
   - component: {fileID: 114062947082545464}
   - component: {fileID: 114435103929562082}
-  - component: {fileID: 57587164361265378}
+  - component: {fileID: 114920569173360420}
   m_Layer: 0
   m_Name: HealthPack
   m_TagString: Untagged
@@ -156,7 +156,7 @@ Light:
   m_Intensity: 3
   m_Range: 1
   m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_InnerSpotAngle: 21.802082
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 30
---- !u!114 &57587164361265378
+--- !u!114 &114920569173360420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,10 +244,11 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 0
   OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

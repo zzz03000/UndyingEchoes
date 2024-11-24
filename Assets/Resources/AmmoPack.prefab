@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 108646884597796964}
   - component: {fileID: 114923613129635330}
   - component: {fileID: 114448886708327992}
-  - component: {fileID: -882993158087560189}
+  - component: {fileID: 114168938141099164}
   m_Layer: 0
   m_Name: AmmoPack
   m_TagString: Untagged
@@ -73,7 +73,7 @@ Light:
   m_Intensity: 3
   m_Range: 1
   m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_InnerSpotAngle: 21.802082
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: 30
---- !u!114 &-882993158087560189
+--- !u!114 &114168938141099164
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,7 +167,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   sceneViewId: 0
-  InstantiationId: 0
+  InstantiationId: 1
   isRuntimeInstantiated: 0
 --- !u!1 &1496639653374222
 GameObject:

@@ -28,35 +28,24 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: hk
+  DevRegion: kr
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - AddAmmo
+  - ApplyUpdatedHealth
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
   - Fire
-  - RespawnSpaceship
-  - ApplyUpdatedHealth
   - OnDamage
+  - RespawnSpaceship
   - RestoreHealth
-  - AddAmmo
-  - ShotProcessOnServer
   - Setup
   - ShotEffectProcessOnClients
-  - OpenOption
-  - CloseOption
-  - SendCloseOptionRequestToMaster
-  - SendOpenOptionRequestToMaster
-  - StartCloseOptionCountdown
-  - SyncOptionState
-  - SyncScore
-  - SyncWaveAndEnemyCount
-  - OnDie
-  - RPC_UpdateWaveText
-  - SetTarget
+  - ShotProcessOnServer
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 1
