@@ -6,9 +6,11 @@ using UnityEngine.UI;
 // 마스터(매치 메이킹) 서버와 룸 접속을 담당
 public class LobbyManager : MonoBehaviourPunCallbacks {
     private string gameVersion = "1"; // 게임 버전
-
     public Text connectionInfoText; // 네트워크 정보를 표시할 텍스트
     public Button joinButton; // 룸 접속 버튼
+
+    public InputField playerInput;
+    string playerName = "";
 
     // 게임 실행과 동시에 마스터 서버 접속 시도
     private void Start() {
@@ -78,4 +80,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks {
         // 모든 룸 참가자들이 Main 씬을 로드하게 함
         PhotonNetwork.LoadLevel("Main");
     }
+    public void SetPlayerName()
+    {
+        playerName = playerInput.text.Trim();
+        if (!string.IsNullOrEmpty(playerName))
+        {
+            PhotonNetwork.NickName = playerName; // Photon의 플레이어 닉네임 설정
+            Debug.Log($"닉네임 설정 완료: {PhotonNetwork.NickName}");
+        }
+        else
+        {
+            Debug.LogWarning("닉네임이 비어 있습니다!");
+        }
+        playerInput.text = string.Empty;
+    }
+
 }
