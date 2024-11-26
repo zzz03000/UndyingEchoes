@@ -12,6 +12,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks {
     public InputField playerInput;
     string playerName = "";
 
+    private ChatManager chatManager;
+
+    void Awake()
+    {
+        chatManager = FindObjectOfType<ChatManager>();
+    }
     // 게임 실행과 동시에 마스터 서버 접속 시도
     private void Start() {
         // 접속에 필요한 정보(게임 버전) 설정
@@ -93,6 +99,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks {
             Debug.LogWarning("닉네임이 비어 있습니다!");
         }
         playerInput.text = string.Empty;
+        ChatManager.Instance.showChat(chatMessage);
     }
 
 }
