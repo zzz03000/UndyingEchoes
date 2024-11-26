@@ -1,5 +1,6 @@
 ﻿using Photon.Pun; // 유니티용 포톤 컴포넌트들
 using Photon.Realtime; // 포톤 서비스 관련 라이브러리
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -99,7 +100,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks {
             Debug.LogWarning("닉네임이 비어 있습니다!");
         }
         playerInput.text = string.Empty;
-        ChatManager.Instance.showChat(chatMessage);
+        if (chatManager != null)
+        {
+            chatManager.ShowChat(chatManager.chatMessage);
+        }
+        else
+        {
+            Debug.LogError("ChatManager not found.");
+        }
+        //chatManager.showChat(chatMessage);
     }
 
 }
