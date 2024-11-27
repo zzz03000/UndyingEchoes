@@ -100,14 +100,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks {
             Debug.LogWarning("닉네임이 비어 있습니다!");
         }
         playerInput.text = string.Empty;
-        if (chatManager != null)
-        {
-            chatManager.ShowChat(chatManager.chatMessage);
-        }
-        else
-        {
-            Debug.LogError("ChatManager not found.");
-        }
+        //if (chatManager != null)
+        //{
+        //    chatManager.ShowChat(chatManager.chatMessage);
+        //}
+        //else
+        //{
+        //    Debug.LogError("ChatManager not found.");
+        //}
         //chatManager.showChat(chatMessage);
     }
 

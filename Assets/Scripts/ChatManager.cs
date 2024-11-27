@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class ChatManager : MonoBehaviour
+public class ChatManager : MonoBehaviourPun
 {
     /*bool isGameStart = false;
     string playerName = "";*/
@@ -15,6 +16,8 @@ public class ChatManager : MonoBehaviour
 
     public GameObject chatPanel;      // Scroll View 또는 채팅창 패널
     public InputField inputField;     // 채팅 입력창
+
+    PhotonView pv;
 
     private bool isChatActive = false;  // 채팅창 활성화 여부
     void Awake()
@@ -33,7 +36,7 @@ public class ChatManager : MonoBehaviour
     void Update()
     {
         // Enter 키로 채팅창 활성화/비활성화 전환
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             if (!isChatActive)  // 채팅창이 비활성화된 상태
             {
@@ -60,8 +63,9 @@ public class ChatManager : MonoBehaviour
 
         if (!string.IsNullOrEmpty(message))  // 빈 메시지는 무시
         {
+            
             // 채팅창에 메시지 추가
-            chatText.text += "\n" + message;
+            chatText.text += "\n" + PhotonNetwork.NickName +" : " + message;
 
             // 입력 필드 초기화
             inputField.text = "";
