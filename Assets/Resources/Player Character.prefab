@@ -631,8 +631,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9237a6135a68a748bac9cbbfad81237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAxisName: Vertical
-  rotateAxisName: Horizontal
+  verticalAxisName: Vertical
+  horizontalAxisName: Horizontal
   fireButtonName: Fire1
   reloadButtonName: Reload
 --- !u!114 &2680181558835980334
@@ -648,8 +648,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  rotateSpeed: 180
+  mouseSensitivity: 2
+  playerCamera: {fileID: 0}
   chatactorCamera: {fileID: 0}
+  cameraPrefab: {fileID: 7636944199293575497, guid: 97717ba34938cfe498d3ec778e99196d,
+    type: 3}
 --- !u!114 &2680085395575279868
 MonoBehaviour:
   m_ObjectHideFlags: 0
