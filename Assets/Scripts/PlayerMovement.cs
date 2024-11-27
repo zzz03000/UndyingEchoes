@@ -1,31 +1,28 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 
-// 플레이어 캐릭터를 사용자 입력에 따라 움직이는 스크립트
 public class PlayerMovement : MonoBehaviourPun
 {
-    public float moveSpeed = 5f; // 앞뒤 움직임의 속도
-    public float rotateSpeed = 180f; // 좌우 회전 속도
+    public float moveSpeed = 5f; // 앞뒤 이동 속도
+    public float strafeSpeed = 5f; // 좌우 이동 속도
+    public float mouseSensitivity = 2f; // 마우스 감도
 
-    private Animator playerAnimator; // 플레이어 캐릭터의 애니메이터
-    private PlayerInput playerInput; // 플레이어 입력을 알려주는 컴포넌트
-    private Rigidbody playerRigidbody; // 플레이어 캐릭터의 리지드바디
+    private Animator playerAnimator; // 애니메이터
+    private PlayerInput playerInput; // 입력 관리
+    private Rigidbody playerRigidbody; // 리지드바디
     [SerializeField]
-    private Transform playerCamera; // 플레이어 카메라
+    private Transform playerCamera; // 카메라
 
-    [SerializeField]
-    Camera chatactorCamera;
+    private float cameraPitch = 0f; // 카메라 상하 회전 각도 제한
 
     [SerializeField]
     private GameObject cameraPrefab; // 카메라 프리팹
 
     private void Start()
     {
-        // 사용할 컴포넌트들의 참조를 가져오기
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
-        chatactorCamera = Camera.main;
 
         if (photonView.IsMine)
         {
@@ -34,48 +31,61 @@ public class PlayerMovement : MonoBehaviourPun
             playerCamera = cameraObject.transform;
 
             // 카메라 위치 조정
-            playerCamera.localPosition = new Vector3(-0.15f, 1.4f, 0.25f); // 머리 위치
+            playerCamera.localPosition = new Vector3(-0.15f, 1.4f, 0.25f);
             playerCamera.localRotation = Quaternion.identity;
 
             Cursor.lockState = CursorLockMode.Locked; // 마우스 잠금
         }
     }
 
-    // FixedUpdate는 물리 갱신 주기에 맞춰 실행됨
     private void FixedUpdate()
     {
-        // 로컬 플레이어만 직접 위치와 회전을 변경 가능
         if (!photonView.IsMine)
         {
             return;
         }
 
-        // 회전 실행
-        Rotate();
-        // 움직임 실행
+        // 이동 처리
         Move();
 
-        // 입력값에 따라 애니메이터의 Move 파라미터 값을 변경
+        // 애니메이터 갱신
         playerAnimator.SetFloat("Move", playerInput.move);
     }
 
-    // 입력값에 따라 캐릭터를 앞뒤로 움직임
-    private void Move()
+    private void Update()
     {
-        // 상대적으로 이동할 거리 계산
-        Vector3 moveDistance =
-            playerInput.move * transform.forward * moveSpeed * Time.deltaTime;
-        // 리지드바디를 통해 게임 오브젝트 위치 변경
-        playerRigidbody.MovePosition(playerRigidbody.position + moveDistance);
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        // 회전 처리
+        Rotate();
     }
 
-    // 입력값에 따라 캐릭터를 좌우로 회전
+    private void Move()
+    {
+        // 앞뒤 이동
+        Vector3 moveDistance = playerInput.move * transform.forward * moveSpeed * Time.deltaTime;
+        // 좌우 이동 (A/D)
+        Vector3 strafeDistance = playerInput.strafe * transform.right * strafeSpeed * Time.deltaTime;
+
+        // 리지드바디를 통한 이동 처리
+        playerRigidbody.MovePosition(playerRigidbody.position + moveDistance + strafeDistance);
+    }
+
     private void Rotate()
     {
-        // 상대적으로 회전할 수치 계산
-        float turn = playerInput.rotate * rotateSpeed * Time.deltaTime;
-        // 리지드바디를 통해 게임 오브젝트 회전 변경
-        playerRigidbody.rotation =
-            playerRigidbody.rotation * Quaternion.Euler(0, turn, 0f);
+        // 마우스 입력 감지
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        // 캐릭터 좌우 회전
+        transform.Rotate(0, mouseX, 0);
+
+        // 카메라 상하 회전 (각도 제한 적용)
+        cameraPitch -= mouseY;
+        cameraPitch = Mathf.Clamp(cameraPitch, -80f, 80f); // 각도 제한
+        playerCamera.localRotation = Quaternion.Euler(cameraPitch, 0, 0);
     }
 }
