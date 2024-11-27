@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon;
 using UnityEngine.UI;
 using Photon.Pun;
 
 public class ChatManager : MonoBehaviourPun
 {
-    /*bool isGameStart = false;
-    string playerName = "";*/
-
     public string chatMessage;
     Text chatText;
     ScrollRect scroll_rect = null;
@@ -17,13 +13,12 @@ public class ChatManager : MonoBehaviourPun
     public GameObject chatPanel;      // Scroll View 또는 채팅창 패널
     public InputField inputField;     // 채팅 입력창
 
-    PhotonView pv;
-
     private bool isChatActive = false;  // 채팅창 활성화 여부
+
     void Awake()
     {
         chatText = GameObject.Find("ChatText").GetComponent<Text>();
-        scroll_rect = GameObject.Find("Scroll View").GetComponent <ScrollRect>();
+        scroll_rect = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
     }
 
     void Start()
@@ -32,7 +27,6 @@ public class ChatManager : MonoBehaviourPun
         inputField.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Enter 키로 채팅창 활성화/비활성화 전환
@@ -63,9 +57,8 @@ public class ChatManager : MonoBehaviourPun
 
         if (!string.IsNullOrEmpty(message))  // 빈 메시지는 무시
         {
-            
-            // 채팅창에 메시지 추가
-            chatText.text += "\n" + PhotonNetwork.NickName +" : " + message;
+            // RPC 호출로 메시지 전송
+            photonView.RPC("ReceiveMessage", RpcTarget.All, PhotonNetwork.NickName, message);
 
             // 입력 필드 초기화
             inputField.text = "";
@@ -75,9 +68,15 @@ public class ChatManager : MonoBehaviourPun
         inputField.ActivateInputField();
     }
 
-    /*public void ShowChat(string chat)
+    [PunRPC]
+    void ReceiveMessage(string sender, string message)
     {
-        chatText.text += chat + "\n";
+        // 채팅창에 메시지 추가
+        chatText.text += "\n" + sender + " : " + message;
+
+        // 스크롤을 최신 메시지로 이동
+        Canvas.ForceUpdateCanvases();
         scroll_rect.verticalNormalizedPosition = 0.0f;
-    }*/
+        Canvas.ForceUpdateCanvases();
+    }
 }
