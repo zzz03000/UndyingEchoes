@@ -121,9 +121,12 @@ public class Gun : MonoBehaviourPun, IPunObservable {
         // 총알이 맞은 곳을 저장할 변수
         Vector3 hitPosition = Vector3.zero;
 
+        // Bunker 레이어를 무시
+        int layerMask = ~LayerMask.GetMask("Bunker");
+
         // 레이캐스트(시작지점, 방향, 충돌 정보 컨테이너, 사정거리)
         if (Physics.Raycast(fireTransform.position,
-            fireTransform.forward, out hit, fireDistance))
+            fireTransform.forward, out hit, fireDistance, layerMask))
         {
             // 레이가 어떤 물체와 충돌한 경우
 
