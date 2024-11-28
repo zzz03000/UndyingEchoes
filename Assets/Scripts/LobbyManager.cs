@@ -1,6 +1,5 @@
 ﻿using Photon.Pun; // 유니티용 포톤 컴포넌트들
 using Photon.Realtime; // 포톤 서비스 관련 라이브러리
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,12 +12,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks {
     public InputField playerInput;
     string playerName = "";
 
-    private ChatManager chatManager;
-
-    void Awake()
-    {
-        chatManager = FindObjectOfType<ChatManager>();
-    }
     // 게임 실행과 동시에 마스터 서버 접속 시도
     private void Start() {
         // 접속에 필요한 정보(게임 버전) 설정
@@ -100,15 +93,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks {
             Debug.LogWarning("닉네임이 비어 있습니다!");
         }
         playerInput.text = string.Empty;
-        //if (chatManager != null)
-        //{
-        //    chatManager.ShowChat(chatManager.chatMessage);
-        //}
-        //else
-        //{
-        //    Debug.LogError("ChatManager not found.");
-        //}
-        //chatManager.showChat(chatMessage);
     }
 
 }

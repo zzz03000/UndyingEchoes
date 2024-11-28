@@ -131,11 +131,15 @@ public class Gun : MonoBehaviourPun, IPunObservable {
             IDamageable target =
                 hit.collider.GetComponent<IDamageable>();
 
-            // 상대방으로 부터 IDamageable 오브젝트를 가져오는데 성공했다면
-            if (target != null)
+            // 맞은 대상이 플레이어가 아닐 경우
+            if(!hit.collider.CompareTag("Player"))
             {
-                // 상대방의 OnDamage 함수를 실행시켜서 상대방에게 데미지 주기
-                target.OnDamage(gunData.damage, hit.point, hit.normal);
+                // 상대방으로 부터 IDamageable 오브젝트를 가져오는데 성공했다면
+                if (target != null)
+                {
+                    // 상대방의 OnDamage 함수를 실행시켜서 상대방에게 데미지 주기
+                    target.OnDamage(gunData.damage, hit.point, hit.normal);
+                }
             }
 
             // 레이가 충돌한 위치 저장
