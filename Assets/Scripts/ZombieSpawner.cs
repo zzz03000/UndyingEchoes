@@ -95,9 +95,26 @@ public class ZombieSpawner : MonoBehaviourPun, IPunObservable {
     }
 
     // 좀비 생성
-    private void CreateZombie() {
-        // 사용할 좀비 데이터 랜덤으로 결정
-        ZombieData zombieData = zombieDatas[Random.Range(0, zombieDatas.Length)];
+    private void CreateZombie()
+    {
+        ZombieData zombieData;
+
+        //스테이지 3이하일때는 기본 좀비만 생성
+        if (wave <= 5)
+        {
+            // 사용할 좀비 데이터 랜덤으로 결정
+            zombieData = zombieDatas[Random.Range(0, zombieDatas.Length - 2)];
+        }
+        else if (wave <= 10) //스테이지 10 이하일 때는 Default,Heavy만 등장
+        {
+            // 사용할 좀비 데이터 랜덤으로 결정
+            zombieData = zombieDatas[Random.Range(0, zombieDatas.Length - 1)];
+        }
+        else //이후에는 전부 랜덤
+        {
+            // 사용할 좀비 데이터 랜덤으로 결정
+            zombieData = zombieDatas[Random.Range(0, zombieDatas.Length)];
+        }
 
         // 생성할 위치를 랜덤으로 결정
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];

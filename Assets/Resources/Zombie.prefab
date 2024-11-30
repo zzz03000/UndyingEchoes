@@ -5428,7 +5428,7 @@ GameObject:
   - component: {fileID: 114489938909257400}
   - component: {fileID: 114262568074800880}
   - component: {fileID: 114854359178017524}
-  - component: {fileID: 8600882418599958527}
+  - component: {fileID: -9154876233442806306}
   m_Layer: 10
   m_Name: Zombie
   m_TagString: Untagged
@@ -5636,6 +5636,7 @@ MonoBehaviour:
   hitSound: {fileID: 8300000, guid: c3d8accfc053f004ca665a1c8c4a6919, type: 3}
   damage: 20
   timeBetAttack: 0.5
+  rigidbody: {fileID: 0}
 --- !u!195 &195263990290779218
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5722,7 +5723,7 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
---- !u!54 &8600882418599958527
+--- !u!54 &-9154876233442806306
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

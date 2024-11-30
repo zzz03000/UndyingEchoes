@@ -21,6 +21,7 @@ public class Zombie : LivingEntity {
     public float damage = 20f; // 공격력
     public float timeBetAttack = 0.5f; // 공격 간격
     private float lastAttackTime; // 마지막 공격 시점
+    public Rigidbody rigidbody;
 
 
     // 추적할 대상이 존재하는지 알려주는 프로퍼티
@@ -48,6 +49,7 @@ public class Zombie : LivingEntity {
         // 렌더러 컴포넌트는 자식 게임 오브젝트에게 있으므로
         // GetComponentInChildren() 메서드를 사용
         zombieRenderer = GetComponentInChildren<Renderer>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     // 좀비 AI의 초기 스펙을 결정하는 셋업 메서드
@@ -164,9 +166,12 @@ public class Zombie : LivingEntity {
             zombieColliders[i].enabled = false;
         }
 
+
         // AI 추적을 중지하고 내비메쉬 컴포넌트를 비활성화
         navMeshAgent.isStopped = true;
         navMeshAgent.enabled = false;
+
+        rigidbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 
         // 사망 애니메이션 재생
         zombieAnimator.SetTrigger("Die");
