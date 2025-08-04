@@ -28,3 +28,6 @@ UndyingEchoes은(는) Unity로 개발된 좀비 서바이벌 장르의 게임입
 
 - ✅ [ 캐릭터 이동 및 점프, 사격 시스템]
 - ✅ [ 협동 기반 서바이벌 시스템]
+
+<img width="1001" height="563" alt="image" src="https://github.com/user-attachments/assets/03661948-7d2d-4ba4-b3b9-5fc873974c5e" />
+<img width="1004" height="559" alt="image" src="https://github.com/user-attachments/assets/6a459a8b-b4a3-4f14-b170-f02791152f12" />
